@@ -6,9 +6,9 @@ namespace EpubMaker;
 
 public class Epub
 {
+    private const string MimeType = "application/epub+zip";
     public required string Title { get; init; }
     public required string Author { get; init; }
-    public string MimeType { get; init; } = "application/epub+zip";
     public string Styles { get; init; } = "";
     public required List<Page> Pages { get; init; } = [];
 
@@ -26,7 +26,7 @@ public class Epub
         // Create mimetype
         await zipFile.AddFile("mimetype", MimeType);
         
-        // Create META-INF
+        // Create META-INF, directory separator here **must** be a forward slash
         await zipFile.AddFile("META-INF/container.xml", MetaInfContainer.Content);
 
         // Create NCX
