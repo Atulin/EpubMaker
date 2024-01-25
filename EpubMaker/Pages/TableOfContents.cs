@@ -1,6 +1,31 @@
 ﻿namespace EpubMaker.Pages;
 
-public class TableOfContents : Page
+internal class TableOfContents : Page
 {
-    
+	public override string FileName => "toc.html";
+	public override string Title { get; init; } = "Table of Contents";
+    public required Chapter[] Chapters { get; init; }
+
+    public override string ToString()
+    {
+	    var links = string.Join("\n\t\t", Chapters.Select(p => $"<li><a href=\"{p.FileName}\">{p.Title}</a></li>"));
+
+	    return $"""
+	            <?xml version="1.0" encoding="utf-8"?>
+	            <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+	            <html xmlns="http://www.w3.org/1999/xhtml">
+	            	<head>
+	            		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	            		<link rel="stylesheet" type="text/css" href="styles.css" />
+	            		<title>{Title}</title>
+	            	</head>
+	            	<body>
+	            		<h1>{Title}</h1>
+	            		<ul>
+	            		{links}
+	            		</ul>
+	            	</body>
+	            </html>
+	            """;
+    }
 }
