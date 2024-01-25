@@ -21,4 +21,15 @@ public static class StringHelpers
 
         return sb.ToString();
     }
+
+    public static string Minify(this string source)
+    {
+        var sb = new StringBuilder();
+        foreach (var line in source.Split('\n', '\r', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+        {
+            sb.Append(line);
+        }
+
+        return sb.ToString();
+    }
 }

@@ -5,9 +5,6 @@ var epub = new Epub
 {
     Title = "Test Epub",
     Author = "John Doe",
-    Styles = "",
-    BookOpf = new BookOpf(),
-    MetaInfContainer = new MetaInfContainer(),
     Pages = [
         new Chapter
         {
@@ -30,4 +27,4 @@ var epub = new Epub
     ]
 };
 
-await epub.Generate("book.epub");
+await epub.Generate("./book.epub");

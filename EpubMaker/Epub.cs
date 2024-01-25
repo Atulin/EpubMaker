@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using System.IO.Compression;
-using System.Text.Encodings.Web;
+﻿using System.IO.Compression;
 using EpubMaker.Pages;
 using EpubMaker.Helpers;
 
@@ -8,44 +6,51 @@ namespace EpubMaker;
 
 public class Epub
 {
-    public required string Title { get; set; }
+    public required string Title { get; init; }
     public required string Author { get; init; }
-    public string MimeType { get; set; } = "application/epub+zip";
-    public required string Styles { get; set; }
-    public required MetaInfContainer MetaInfContainer { get; set; }
-    public BookNcx? BookNcx { get; set; }
-    public required BookOpf BookOpf { get; set; }
-    public required List<Page> Pages { get; set; } = new();
+    public string MimeType { get; init; } = "application/epub+zip";
+    public string Styles { get; init; } = "";
+    public required List<Page> Pages { get; init; } = [];
 
     public async Task Generate(string outFile)
     {
-        var tmp = Path.Join(Path.GetTempPath(), "epub-maker", Title.Friendlify());
-
-        if (!Directory.Exists(tmp))
-        {
-            Directory.CreateDirectory(tmp);
-        }
-        
         Pages.Add(new TableOfContents
         {
             Chapters = Pages.OfType<Chapter>().ToArray()
         });
+        
+        // Open file
+        await using var fs = File.Open(outFile, FileMode.OpenOrCreate);
+        using var zipFile = new ZipArchive(fs, ZipArchiveMode.Create);
+        
+        // Create mimetype
+        await zipFile.AddFile("mimetype", MimeType);
+        
+        // Create META-INF
+        await zipFile.AddFile("META-INF/container.xml", MetaInfContainer.Content);
 
-        BookNcx = new BookNcx
+        // Create NCX
+        await zipFile.AddFile("book.ncx", new BookNcx
         {
             Author = Author,
             Title = Title,
-            Chapters = Pages.ToArray()
-        };
-        await File.WriteAllTextAsync(Path.Join(tmp, "book.ncx"), BookNcx.ToString());
-
-        Process.Start("explorer.exe", tmp);
+            Pages = Pages.ToArray()
+        }.ToString());
         
-        Console.WriteLine(tmp);
-        var pageTasks = Pages.Select(p => File.WriteAllTextAsync(Path.Join(tmp, p.FileName), p.ToString()));
+        // Create OPF
+        await zipFile.AddFile("book.opf", new BookOpf
+        {
+            Author = Author,
+            Title = Title,
+            Pages = Pages.ToArray()
+        }.ToString());
+        
+        // Add styles
+        await zipFile.AddFile("styles.css", Styles);
+        
+        
+        var pageTasks = Pages.Select(p => zipFile.AddFile(p.FileName, p.ToString()));
         await Task.WhenAll(pageTasks);
-        
-        ZipFile.CreateFromDirectory(tmp, outFile);
     }
 
 }

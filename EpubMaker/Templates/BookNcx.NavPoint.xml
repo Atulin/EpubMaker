@@ -1,4 +1,0 @@
-﻿<navPoint id="{{id}}" playOrder="{{order}}">
-    <navLabel><text>{{label}}</text></navLabel>
-    <content src="{{src}}" />
-</navPoint>

@@ -6,7 +6,7 @@ public class BookNcx
 {
 	public required string Title { get; init; }
 	public required string Author { get; init; }
-	public required Page[] Chapters { get; init; }
+	public required Page[] Pages { get; init; }
 
 	private static (string body, uint order) CreateNavPoint(Page page)
 	{
@@ -32,7 +32,7 @@ public class BookNcx
 	
     public override string ToString()
     {
-	    var navPoints = Chapters
+	    var navPoints = Pages
 		    .Select(CreateNavPoint)
 		    .OrderBy(x => x.order)
 		    .Select(x => x.body);
