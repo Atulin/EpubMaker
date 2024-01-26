@@ -1,4 +1,5 @@
-﻿using EpubMaker.Pages;
+﻿using EpubMaker.Helpers;
+using EpubMaker.Pages;
 
 namespace EpubMaker;
 
@@ -43,11 +44,11 @@ public class BookNcx
                   "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
                <ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1" xml:lang="en">
               	<head>
-              		<meta name="dtb:uid" content="https://www.fimfiction.net/story/379911/the-enchanted-kingdom" />
+              		<meta name="dtb:uid" content="{Title.Friendlify()}" />
               		<meta name="dtb:depth" content="2" />
               		<meta name="dtb:totalPageCount" content="0" />
               		<meta name="dtb:maxPageNumber" content="0" />
-              		<meta name="dtb:generator" content="EPub (2.04) by A. Grandt, http://www.phpclasses.org/package/6115" />
+              		<meta name="dtb:generator" content="https://github.com/Atulin/EpubMaker" />
               	</head>
               
               	<docTitle>

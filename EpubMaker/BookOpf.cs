@@ -26,7 +26,7 @@ public class BookOpf
                   <manifest>
                     {string.Join("\n\t\t", items)}
                     <item id="ncx" href="book.ncx" media-type="application/x-dtbncx+xml"/>
-                    <item id="css_css" href="styles.css" media-type="text/css"/>
+                    <item id="css_css" href="{Constants.StylesPath}" media-type="text/css"/>
                     <item href="cover.jpg" id="cover" media-type="image/jpeg"/>
                   </manifest>
                   <spine toc="ncx">

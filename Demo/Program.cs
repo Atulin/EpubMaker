@@ -5,7 +5,12 @@ var epub = new Epub
 {
     Title = "Test Epub",
     Author = "John Doe",
-    Pages = [
+    Styles = """
+             p {
+                 font-family: "Palatino", "Times New Roman", Caecilia, serif;
+             }
+             """,
+    Chapters = [
         new Chapter
         {
             Number = 1,
