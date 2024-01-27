@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a chapter, or otherwise a unit of the publication
 /// </summary>
-public class Chapter : Page
+public sealed class Chapter : Page
 {
     /// <summary>
     /// Allows to override the file name of the chapter.

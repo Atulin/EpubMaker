@@ -7,7 +7,7 @@ namespace EpubMaker;
 /// <summary>
 /// Represents the complete <c>.epub</c> file
 /// </summary>
-public class Epub
+public sealed class Epub
 {
     private const string MimeType = "application/epub+zip";
     
@@ -32,10 +32,10 @@ public class Epub
     public required List<Chapter> Chapters { get; init; } = [];
 
     /// <summary>
-    /// Generates the resulting <c>.epub</c> file asynchronously
+    /// Generates the resulting file in memory
     /// </summary>
-    /// <param name="outFile">Full path to the output file.<example>output/coraline.epub</example></param>
-    public async Task Generate(string outFile)
+    /// <param name="fs"><see cref="FileStream"/> to store the generated file</param>
+    public async Task Generate(FileStream fs)
     {
         Page[] pages =
         [
@@ -51,7 +51,6 @@ public class Epub
         ];
 
         // Open file
-        await using var fs = File.Open(outFile, FileMode.OpenOrCreate);
         using var zipFile = new ZipArchive(fs, ZipArchiveMode.Create);
 
         // Create mimetype
@@ -82,5 +81,15 @@ public class Epub
         // ReSharper disable once AccessToDisposedClosure
         var pageTasks = pages.Select(p => zipFile.AddFile(p.FileName, p.ToString()));
         await Task.WhenAll(pageTasks);
+    }
+
+    /// <summary>
+    /// Generates the <c>.epub</c> file at a selected location
+    /// </summary>
+    /// <param name="outFile">Path to the desired file location</param>
+    public async Task Generate(string outFile)
+    {
+        await using var fs = File.Open(outFile, FileMode.OpenOrCreate);
+        await Generate(fs);
     }
 }

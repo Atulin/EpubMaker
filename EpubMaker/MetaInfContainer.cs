@@ -2,7 +2,7 @@
 
 namespace EpubMaker;
 
-public static class MetaInfContainer
+internal static class MetaInfContainer
 {
     public static string Content => """
                                     <?xml version="1.0" encoding="utf-8"?>

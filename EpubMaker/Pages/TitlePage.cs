@@ -1,6 +1,6 @@
 ﻿namespace EpubMaker.Pages;
 
-public class TitlePage : Page
+internal class TitlePage : Page
 {
     public override required string Title { get; init; }
     public override string FileName => "title.html";

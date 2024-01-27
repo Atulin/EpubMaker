@@ -2,7 +2,7 @@
 
 namespace EpubMaker.Helpers;
 
-public static class StringHelpers
+internal static class StringHelpers
 {
     public static string Friendlify(this string source)
     {

@@ -2,7 +2,7 @@
 
 namespace EpubMaker.Helpers;
 
-public static class ZipArchiveHelper
+internal static class ZipArchiveHelper
 {
     public static async Task AddFile(this ZipArchive file, string path, string? content)
     {

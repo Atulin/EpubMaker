@@ -3,7 +3,7 @@ using EpubMaker.Pages;
 
 namespace EpubMaker;
 
-public class BookNcx
+internal class BookNcx
 {
 	public required string Title { get; init; }
 	public required string Author { get; init; }

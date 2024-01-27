@@ -2,7 +2,7 @@
 
 namespace EpubMaker;
 
-public class BookOpf
+internal class BookOpf
 {
     public required string Title { get; init; }
     public required string Author { get; init; }

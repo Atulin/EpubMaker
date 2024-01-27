@@ -1,6 +1,6 @@
 ﻿namespace EpubMaker.Helpers;
 
-public static class DirectoryHelper
+internal static class DirectoryHelper
 {
     public static void EnsureCreated(string directory)
     {
