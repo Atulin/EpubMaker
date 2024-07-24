@@ -11,4 +11,12 @@ internal static class ZipArchiveHelper
         await streamWriter.WriteAsync(content);
         streamWriter.Close();
     }
+    
+    public static async Task AddFile(this ZipArchive file, string path, ReadOnlyMemory<byte> content)
+    {
+        var archiveEntry = file.CreateEntry(path, CompressionLevel.NoCompression);
+        await using var stream = archiveEntry.Open();
+        await stream.WriteAsync(content);
+        stream.Close();
+    }
 }

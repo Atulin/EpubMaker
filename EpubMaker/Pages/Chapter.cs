@@ -38,7 +38,7 @@ public sealed class Chapter : Page
         <html xmlns="http://www.w3.org/1999/xhtml">
             <head>
                 <link rel="stylesheet" type="text/css" href="{Constants.StylesPath}"/>
-                {(CssOverride is null ? "" : $"<style>{CssOverride}</style>")}
+                {(CssOverride is null ? "" : $"<style type=\"text/css\">{CssOverride}</style>")}
                 <title>{Title}</title>
             </head>
             <body>
