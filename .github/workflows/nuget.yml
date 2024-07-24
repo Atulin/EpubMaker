@@ -11,13 +11,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release EpubMaker
       - name: Pack
-        run: dotnet pack --configuration Release --no-build --output ./artifacts
+        run: dotnet pack --configuration Release --no-build --output ./artifacts EpubMaker
       - name: Get version
-        uses: kzrnm/get-net-sdk-project-versions-action@v1
+        uses: kzrnm/get-net-sdk-project-versions-action@v2
         id: get-version
         with:
           proj-path: EpubMaker/EpubMaker.csproj

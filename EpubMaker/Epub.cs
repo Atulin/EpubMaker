@@ -45,7 +45,7 @@ public sealed class Epub
     /// <summary>
     /// Unique book identifier like ISBN ur UUID
     /// </summary>
-    public string Identifier { get; init; }
+    public string Identifier { get; init; } = Guid.NewGuid().ToString();
 
     /// <summary>
     /// Generates the resulting file in memory
@@ -74,8 +74,6 @@ public sealed class Epub
 
         // Create META-INF, directory separator here **must** be a forward slash
         await zipFile.AddFile("META-INF/container.xml", MetaInfContainer.Content);
-
-        var uuid = Guid.NewGuid().ToString();
         
         // Create NCX
         await zipFile.AddFile("book.ncx", new BookNcx
@@ -83,7 +81,7 @@ public sealed class Epub
             Author = Author,
             Title = Title,
             Pages = pages,
-            Identifier = uuid,
+            Identifier = Identifier,
         }.ToString());
 
         // Create OPF
@@ -94,7 +92,7 @@ public sealed class Epub
             Pages = pages,
             Culture = Culture,
             HasCover = CoverImage is not null,
-            Identifier = uuid,
+            Identifier = Identifier,
         }.ToString());
 
         // Add styles

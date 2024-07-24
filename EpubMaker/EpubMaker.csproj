@@ -12,11 +12,11 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageOutputPath>$(SolutionDir)artifacts</PackageOutputPath>
         
-        <Version>1.2.0</Version>
+        <Version>1.2.1</Version>
         <Title>EpubMaker</Title>
         <Authors>Atulin</Authors>
         <PackageProjectUrl>https://github.com/Atulin/EpubMaker</PackageProjectUrl>
-        <PackageLicenseUrl>https://raw.githubusercontent.com/Atulin/EpubMaker/master/LICENSE</PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Atulin/EpubMaker</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageTags>epub</PackageTags>
